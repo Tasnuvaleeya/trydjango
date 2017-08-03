@@ -36,14 +36,25 @@ class HomeView(View):
         # print(request.POST)
         # print(request.POST.get("url"))
         form = SubmitURLForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data.get('url'))
-        context ={
+        context = {
             "title": "Kirr.Co",
             "form": form
         }
+        template = "shortener/home.html"
+        if form.is_valid():
+            new_url = form.cleaned_data.get('url')
+            obj,created = KirrURL.objects.get_or_create(url=new_url)
+            context ={
+                "object":obj,
+                "created":created
+            }
+            if created:
+                template="shortener/success.html"
+            else:
+                template ="shortener/already-exists.html"
 
-        return render(request, "shortener/home.html", context)
+
+        return render(request,template,context)
 
 
 class KirrCBView(View):                                              # class based view
