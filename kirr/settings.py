@@ -25,7 +25,7 @@ SECRET_KEY = 'e*)6o92mrefb!d5vu7@o-gcuo3-*&_$(&hen+*8&v_%zyy_*!2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['tirr.com', 'www.tirr.com', 'www.kirr.co', 'kirr.co','https://kirr-shorten-url.herokuapp.com/']
+ALLOWED_HOSTS = ['tirr.com', 'www.tirr.com', 'www.kirr.co', 'kirr.co','kirr-shorten-url.herokuapp.com/']
 
 
 # Application definition
