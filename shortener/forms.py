@@ -39,3 +39,8 @@ class SubmitURLForm(forms.Form):
     #     if not "com" in url:
     #         raise forms.ValidationError("This is not valid of no .com")
     #     return url
+    # def clean_url(self):
+    #     url = self.cleaned_data['url']
+    #     if 'http' in url:
+    #         return url
+    #     return 'http://' + url

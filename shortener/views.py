@@ -29,9 +29,11 @@ class HomeView(View):
 
     def get(self, request, *args,**kwargs):
         new_form = SubmitURLForm()
+        bg_image='https://blog1.fkimg.com/wp-content/uploads/2016/04/Ormond-Beach-Summer-Affordable-Beach-610.jpg'
         context = {
             "title": "Kirr.Co",
-            "form": new_form
+            "form": new_form,
+            "bg_image":bg_image
         }
         return render(request, "shortener/home.html", context)
 
