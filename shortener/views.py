@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404,HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404,HttpResponseRedirect,Http404
 from django.http import HttpResponse
 from django.views import View
 from .models import KirrURL
 from .forms import SubmitURLForm
+
+from analytics.models import ClickEvent
 # Create your views here.
 
 """
@@ -15,6 +17,7 @@ def kirr_redirect_view(request, shortcode=None, *args, **kwargs):    # function 
     # return HttpResponse('hello {sc}'.format(sc=obj.url))
     return HttpResponseRedirect(obj.url)
  """
+
 
 def home_view_fbv(request, *args,**kwargs):
     if request.method=='POST':
@@ -53,16 +56,21 @@ class HomeView(View):
             else:
                 template ="shortener/already-exists.html"
 
-
         return render(request,template,context)
 
 
-class KirrCBView(View):                                              # class based view
+class URLRedirectView(View):                                              # class based view
     def get(self, request,shortcode=None, *args,**kwargs):
         # print(args)
         # print(kwargs)
-        obj = get_object_or_404(KirrURL, shortcode=shortcode)
-        return HttpResponse('hello again {sc}'.format(sc=obj.url))
+        # obj = get_object_or_404(KirrURL, shortcode=shortcode)
+        qs=KirrURL.objects.filter(shortcode__iexact=shortcode)
+        if qs.count()!=1 and not qs.exists():
+            raise Http404
+        obj = qs.first()
+        print(ClickEvent.objects.create_event(obj))
+        # return HttpResponse('hello again {sc}'.format(sc=obj.url))
+        return HttpResponseRedirect(obj.url)
 
     # def post(self, request, *args, **kwargs):
         # return HttpResponse()

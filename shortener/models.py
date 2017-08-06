@@ -32,7 +32,6 @@ class KirrURLManager(models.Manager):
         return "New Codes made :{i}".format(i=new_codes)
 
 
-
 class KirrURL(models.Model):
     url = models.CharField(max_length=220, validators=[validate_dot_com,validate_url])
     shortcode = models.CharField(max_length=SHORTCODE_MAX, unique=True, blank=True)
@@ -48,7 +47,6 @@ class KirrURL(models.Model):
         super(KirrURL, self).save(*args,**kwargs)
 
     # def my_save(self):
-
 
     def __str__(self):
         return str(self.url)

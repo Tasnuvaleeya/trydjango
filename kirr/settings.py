@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_hosts',
     'shortener',
+    'analytics',
 ]
 
 MIDDLEWARE = [
@@ -61,8 +62,8 @@ PARENT_HOST = "tirr.com:8000"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        # 'DIRS': [os.path.join(BASE_DIR,'templates')],  # for externel templates file
+        # 'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],  # for externel templates file
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
